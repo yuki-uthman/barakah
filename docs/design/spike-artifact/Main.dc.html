@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Merge 1 · Gather and fuse</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=EB+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'EB Garamond',Georgia,serif;background:#0C1710;color:#F1EAD6;-webkit-font-smoothing:antialiased}
+button{font-family:inherit}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.press{transition:transform 180ms ease}.press:active{transform:scale(.97)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: radial-gradient(430px 520px at 50% -90px, rgba(228,200,125,0.14) 0%, rgba(0,0,0,0) 70%), linear-gradient(180deg, #18291D 0%, #0C1710 100%);">
+
+<div style="position: absolute; left: 0; top: 0; width: 390px; height: 240px;"><div style="position: absolute; left: 0; right: 0; top: 74px;"><div style="display: flex; flex-direction: column; align-items: center; gap: 2px;"><div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 15px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: #E4C87D;">Left of today</div><div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 46px; line-height: 50px; font-variant-numeric: tabular-nums; color: #F1EAD6; display: flex; justify-content: center;"><sc-for list="{{clockChars}}" as="k" hint-placeholder-count="8"><span style="display: inline-block; width: {{k.w}}px; text-align: center;">{{k.ch}}</span></sc-for></div></div></div><div aria-hidden="true" style="position: absolute; inset: 0; clip-path: path('M56 10 H334 A44 44 0 0 1 378 54 V118 C378 196 286 236 195 236 C104 236 12 196 12 118 V54 A44 44 0 0 1 56 10 Z');"><svg viewBox="0 0 390 240" style="position: absolute; left: 0; top: 0; width: 390px; height: 240px; display: block;"><path d="{{floodFill}}" style="fill: #B0935A;"></path><path d="{{floodLine}}" style="fill: none; stroke: #FAFAD1; stroke-width: 1.5;"></path></svg><div style="position: absolute; left: 0; right: 0; top: {{floodSurf}}px; bottom: 0; overflow: hidden;"><div style="position: absolute; left: 0; right: 0; top: {{floodTextTop}}px;"><div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; gap: 2px;"><div style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 15px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: #4E3D18;">Left of today</div><div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 46px; line-height: 50px; font-variant-numeric: tabular-nums; color: #1A1206; display: flex; justify-content: center;"><sc-for list="{{clockChars}}" as="k" hint-placeholder-count="8"><span style="display: inline-block; width: {{k.w}}px; text-align: center;">{{k.ch}}</span></sc-for></div></div></div></div></div><svg aria-hidden="true" viewBox="0 0 390 240" style="position: absolute; left: 0; top: 0; width: 390px; height: 240px; overflow: visible;"><path d="M56 10 H334 A44 44 0 0 1 378 54 V118 C378 196 286 236 195 236 C104 236 12 196 12 118 V54 A44 44 0 0 1 56 10 Z" style="fill: rgba(241,234,214,0.035); stroke: rgba(241,234,214,0.72); stroke-width: 3.5; stroke-linejoin: round;"></path></svg></div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 453px; height: 70px; background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0));"></div>
+<div aria-hidden="true" style="position: absolute; left: 24px; right: 24px; top: 452px; height: 1px; background: rgba(241,234,214,0.22);"></div>
+<sc-for list="{{stains}}" as="s" hint-placeholder-count="0"><div aria-hidden="true" style="position: absolute; left: {{s.x}}px; top: {{s.y}}px; width: {{s.w}}px; height: {{s.h}}px; border-radius: 50%; background: rgba(92,104,94,{{s.o}});"></div></sc-for>
+<sc-for list="{{seeps}}" as="s" hint-placeholder-count="0"><div aria-hidden="true" style="position: absolute; left: {{s.x}}px; top: 454px; width: 1.5px; height: {{s.h}}px; border-radius: 1px; background: linear-gradient(180deg, rgba(150,158,146,{{s.o}}), rgba(150,158,146,0));"></div></sc-for>
+<div aria-hidden="true" style="position: absolute; left: {{flashX}}px; top: {{flashY}}px; width: {{flashS}}px; height: {{flashS}}px; border-radius: 50%; background: radial-gradient(circle, rgba(250,250,209,0.95), rgba(250,250,209,0) 70%); opacity: {{flashO}};"></div>
+<sc-for list="{{sparks}}" as="q" hint-placeholder-count="0"><div aria-hidden="true" style="position: absolute; left: {{q.x}}px; top: {{q.y}}px; width: {{q.s}}px; height: {{q.s}}px; border-radius: 50%; background: {{q.c}}; opacity: {{q.o}};"></div></sc-for>
+<button class="press" onClick="{{toggle}}" aria-label="{{cellAria}}" style="padding: 0; border: none; cursor: pointer; display: block; position: absolute; left: {{cellX}}px; top: 330px; width: 120px; height: 120px; border-radius: 28px; overflow: hidden; background: rgba(0,0,0,0.5); box-shadow: {{cellGlow}};">
+<svg viewBox="0 0 120 120" aria-hidden="true" style="width: 120px; height: 120px; display: block; opacity: {{cellOpacity}};"><path d="{{cellFill}}" style="fill: #E4C87D;"></path><path d="{{cellLine}}" style="fill: none; stroke: #FAFAD1; stroke-width: 1.5;"></path></svg>
+<div style="position: absolute; inset: 0; border-radius: 28px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);"></div></button>
+<svg viewBox="0 0 390 470" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 390px; height: 470px; pointer-events: none; overflow: visible;"><path d="{{stream}}" style="fill: none; stroke: #E4C87D; stroke-width: {{sGlow}}; stroke-linecap: round; opacity: {{glowOp}};"></path><path d="{{stream}}" style="fill: none; stroke: #E4C87D; stroke-width: {{sCore}}; stroke-linecap: round; opacity: {{coreOp}};"></path><path d="{{stream}}" style="fill: none; stroke: #FAFAD1; stroke-width: {{sBead}}; stroke-linecap: round; stroke-dasharray: {{sDash}}; stroke-dashoffset: {{dashOff}}; opacity: {{coreOp}};"></path><ellipse cx="{{r0.cx}}" cy="{{r0.cy}}" rx="{{r0.rx}}" ry="{{r0.ry}}" style="fill: none; stroke: {{r0.c}}; stroke-width: 1.2; opacity: {{r0.o}};"></ellipse><ellipse cx="{{r1.cx}}" cy="{{r1.cy}}" rx="{{r1.rx}}" ry="{{r1.ry}}" style="fill: none; stroke: {{r1.c}}; stroke-width: 1.2; opacity: {{r1.o}};"></ellipse><ellipse cx="{{r2.cx}}" cy="{{r2.cy}}" rx="{{r2.rx}}" ry="{{r2.ry}}" style="fill: none; stroke: {{r2.c}}; stroke-width: 1.2; opacity: {{r2.o}};"></ellipse></svg>
+<div aria-hidden="true" style="position: absolute; left: {{lvX}}px; top: {{lvY}}px; width: {{lvW}}px; height: {{lvH}}px; border-radius: {{lvR}}; background: linear-gradient(180deg, #FAFAD1 -70%, #E4C87D 70%); box-shadow: 0 0 18px 2px rgba(228,200,125,0.55); opacity: {{lvO}};"></div>
+<div aria-live="polite" style="position: absolute; left: 0; right: 0; top: 474px; text-align: center; font-size: 16px; color: #93A694;">{{hint}}</div><div style="position: absolute; left: 0; right: 0; top: 496px; text-align: center; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 15px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: #E4C87D;">Caught today</div>
+<sc-for list="{{hours}}" as="b" hint-placeholder-count="0"><div style="position: absolute; left: {{b.x}}px; top: 530px; width: 52px; height: 52px; border-radius: 12px; background: linear-gradient(180deg, #FAFAD1 -70%, #E4C87D 70%); box-shadow: 0 0 14px 1px rgba(228,200,125,0.45); transition: left 450ms ease;"></div></sc-for>
+<sc-for list="{{tens}}" as="b" hint-placeholder-count="4"><div style="position: absolute; left: {{b.x}}px; top: 552px; width: 30px; height: 30px; border-radius: 7px; background: linear-gradient(180deg, #FAFAD1 -70%, #E4C87D 70%); box-shadow: 0 0 9px 0.5px rgba(228,200,125,0.42); transition: left 450ms ease;"></div></sc-for>
+<sc-for list="{{mins}}" as="b" hint-placeholder-count="7"><div style="position: absolute; left: {{b.x}}px; top: 592px; width: 14px; height: 14px; border-radius: 3px; background: linear-gradient(180deg, #FAFAD1 -70%, #E4C87D 70%); box-shadow: 0 0 5px 0.5px rgba(228,200,125,0.38);"></div></sc-for>
+<sc-for list="{{fx}}" as="f" hint-placeholder-count="0"><div aria-hidden="true" style="position: absolute; left: {{f.x}}px; top: {{f.y}}px; width: {{f.w}}px; height: {{f.h}}px; border-radius: {{f.r}}px; background: {{f.bg}}; opacity: {{f.o}}; box-shadow: {{f.sh}}; overflow: hidden; display: flex; align-items: flex-end;"><div style="width: 100%; height: {{f.fh}}%; background: linear-gradient(180deg, #FAFAD1 -70%, #E4C87D 70%);"></div></div></sc-for>
+<div style="position: absolute; left: 0; right: 0; top: 620px; display: flex; flex-direction: column; align-items: center; gap: 2px;"><div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 52px; line-height: 1.05; font-variant-numeric: tabular-nums; display: flex; justify-content: center;"><sc-for list="{{totalChars}}" as="k" hint-placeholder-count="8"><span style="display: inline-block; width: {{k.w}}px; text-align: center;">{{k.ch}}</span></sc-for></div><div style="font-size: 16px; color: #93A694; font-variant-numeric: tabular-nums;">{{status}}</div></div>
+<nav aria-label="Main" style="position: absolute; left: 20px; right: 20px; bottom: 28px; display: flex; justify-content: space-between; align-items: center;"><button aria-label="History" style="width: 60px; height: 60px; border-radius: 50%; box-sizing: border-box; border: 1px solid rgba(228,200,125,0.60); background: rgba(12,23,16,0.70); color: #E4C87D; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="width: 26px; height: 26px;"><path d="M5 19v-7 M12 19V5 M19 19v-5"></path></svg></button><button aria-label="Count dhikr" style="width: 60px; height: 60px; border-radius: 50%; box-sizing: border-box; border: 1px solid rgba(228,200,125,0.60); background: rgba(12,23,16,0.70); color: #E4C87D; display: flex; align-items: center; justify-content: center; cursor: pointer;"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="width: 26px; height: 26px;"><path d="M12 3.5v9 M8.5 6.5v6 M15.5 6.5v6 M5.5 10.5v3a6.5 6.5 0 0 0 13 0v-3"></path></svg></button></nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;sessionRunning&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;section&quot;:&quot;Prototype&quot;},&quot;streamWidth&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:6,&quot;min&quot;:1,&quot;max&quot;:12,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;px&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;groundSplash&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.2,&quot;min&quot;:0,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;section&quot;:&quot;Prototype&quot;},&quot;hoursLeft&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:24,&quot;step&quot;:1,&quot;unit&quot;:&quot;h&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;autoToggle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;section&quot;:&quot;Prototype&quot;},&quot;demoSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:1,&quot;max&quot;:120,&quot;step&quot;:1,&quot;unit&quot;:&quot;x&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+class Component extends DCLogic {
+_wave(W, H, f, amp, phase, tilt) {
+var N = 28, pts = [], top = H * (1 - Math.max(0, Math.min(1, f))); tilt = tilt || 0;
+for (var i = 0; i <= N; i++) { var t = i / N; pts.push((W * t).toFixed(1) + ' ' + (top - tilt * (2 * t - 1) + amp * Math.sin(t * 1.35 * 2 * Math.PI + phase)).toFixed(1)); }
+return { line: 'M' + pts.join(' L'), fill: 'M0 ' + H + ' L' + pts.join(' L') + ' L' + W + ' ' + H + ' Z' };
+}
+_fmt(m) { m = Math.floor(m); var h = Math.floor(m / 60), r = m % 60; return h ? h + ' h ' + r + ' min' : r + ' min'; }
+_fresh() { var on = !!(this.props.sessionRunning ?? true); return { running: on, pos: on ? 1 : 0, frac: 0.2, cells: 47, elapsed: 0, hand: null, t: 0, tilt: 0, sv: 0, auto: 0, f0: 0.2, c0: 47, undo: false, dH: 0, dT: 4, dU: 7, anim: null }; }
+_hm() { var d = new Date(); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
+_setRunning(on) { var m = this._m; if (!m || m.running === on) return; m.running = on; if (on) { m.since = this._hm(); m.elapsed = 0; m.f0 = m.frac; m.c0 = m.cells; m.undo = false; } else if (m.elapsed < 60 && !m.hand) { m.undo = true; m.cells = m.c0; } }
+componentDidMount() {
+var self = this; this._m = this._fresh();
+var prev = null, last = 0;
+function loop(ts) {
+if (prev === null) prev = ts;
+var dt = Math.min(0.1, (ts - prev) / 1000); prev = ts;
+self._tick(dt, ts / 1000);
+if (ts - last > 33) { last = ts; self.setState({ f: ts }); }
+self._raf = requestAnimationFrame(loop);
+}
+this._raf = requestAnimationFrame(loop);
+}
+componentDidUpdate(prev) { if (prev.sessionRunning !== this.props.sessionRunning && this._m) this._setRunning(!!this.props.sessionRunning); }
+componentWillUnmount() { cancelAnimationFrame(this._raf); }
+_tick(dt, t) {
+var m = this._m, speed = this.props.demoSpeed ?? 40;
+var p0 = m.pos; m.pos += ((m.running ? 1 : 0) - m.pos) * Math.min(1, dt * 5); m.t = t;
+this._animTick(m, dt);
+var vel = (m.pos - p0) / Math.max(dt, 0.001), want = Math.max(-13, Math.min(13, vel * 3.4));
+m.sv += ((want - m.tilt) * 90 - m.sv * 9) * dt; m.tilt += m.sv * dt;
+if (this.props.autoToggle ?? false) { m.auto += dt; if (m.auto > (m.running ? 7 : 3.5)) { m.auto = 0; this._setRunning(!m.running); } }
+if (m.undo) { m.frac += (m.f0 - m.frac) * Math.min(1, dt * 2.5); if (Math.abs(m.frac - m.f0) < 0.003) { m.frac = m.f0; m.undo = false; } }
+if (m.hand) { m.hand.p += dt / 0.8; if (m.hand.p >= 1) { m.cells += 1; this._landed(m); if (m.cells > 99999) m.cells = 47; m.hand = null; } }
+if (m.running && m.pos > 0.9) {
+m.elapsed += dt * speed; m.frac += dt * speed / 60;
+if (m.frac >= 1 && !m.hand) { m.frac = 0; m.hand = { p: 0, slot: (m.dU % 10) }; }
+}
+}
+_lay(Hn, Tn) {
+var total = (Hn ? Hn * 58 - 6 : 0) + (Hn && Tn ? 12 : 0) + (Tn ? Tn * 35 - 5 : 0), x0 = 195 - total / 2, hx = [], tx = [];
+for (var i = 0; i < Hn; i++) hx.push(x0 + i * 58);
+var ts = x0 + (Hn ? Hn * 58 - 6 + (Tn ? 12 : 0) : 0);
+for (var j = 0; j < Tn; j++) tx.push(ts + j * 35);
+return { hx: hx, tx: tx };
+}
+_startAnim(m, kind) {
+var V = 'fuse', src = [], dst;
+if (kind === 'ten') {
+for (var i = 0; i < 10; i++) src.push({ x: 111.5 + i * 17, y: 592, s: 14 });
+dst = { x: this._lay(m.dH, m.dT + 1).tx[m.dT], y: 552, s: 30 };
+} else {
+var before = this._lay(m.dH, m.dT);
+for (var j = 0; j < 6; j++) src.push({ x: before.tx[j], y: 552, s: 30 });
+dst = { x: this._lay(m.dH + 1, m.dT - 6).hx[m.dH], y: 530, s: 52 };
+}
+m.anim = { kind: kind, p: 0, src: src, dst: dst, dur: V === 'pour' ? 1.35 : V === 'lock' ? 1.05 : 0.8 };
+}
+_landed(m) {
+m.dU += 1;
+if (m.cells > 125) { m.cells = 47; m.dH = 0; m.dT = 4; m.dU = 7; m.anim = null; }
+}
+_animTick(m, dtv) {
+if (!m.anim) {
+if (!m.hand && m.dH * 60 + m.dT * 10 + m.dU !== m.cells) { m.dH = Math.floor(m.cells / 60); m.dT = Math.floor(m.cells % 60 / 10); m.dU = m.cells % 10; }
+if (m.dU >= 10) this._startAnim(m, 'ten'); else if (m.dT >= 6) this._startAnim(m, 'hour');
+return;
+}
+m.anim.p += dtv / m.anim.dur;
+if (m.anim.p >= 1) {
+if (m.anim.kind === 'ten') { m.dU -= 10; m.dT += 1; } else { m.dT -= 6; m.dH += 1; }
+m.anim = null;
+}
+}
+_fx(A) {
+var V = 'fuse', p = A.p, src = A.src, d = A.dst, n = src.length, s = src[0].s, D = d.s, out = [];
+var GOLD = 'linear-gradient(180deg, #FAFAD1 -70%, #E4C87D 70%)', rs = s * 0.22, rD = D * 0.23;
+function ease(u) { u = Math.max(0, Math.min(1, u)); return u * u * (3 - 2 * u); }
+function item(x, y, w, h, r, bg, o, sh, fh) { return { x: x.toFixed(1), y: y.toFixed(1), w: w.toFixed(1), h: h.toFixed(1), r: r.toFixed(1), bg: bg, o: Math.max(0, Math.min(1, o)).toFixed(2), sh: sh, fh: fh || 0 }; }
+var dcx = d.x + D / 2, dcy = d.y + D / 2, i, c;
+if (V === 'fuse') {
+var e1 = ease(p / 0.55), fade = 1 - ease((p - 0.5) / 0.3);
+for (i = 0; i < n; i++) { c = src[i]; out.push(item(c.x + (dcx - s / 2 - c.x) * e1, c.y + (dcy - s / 2 - c.y) * e1, s, s, rs, GOLD, fade, 'none')); }
+var e2 = ease((p - 0.4) / 0.6), sz = s + (D - s) * e2, glow = 8 + 18 * Math.sin(Math.PI * e2);
+out.push(item(dcx - sz / 2, dcy - sz / 2, sz, sz, rs + (rD - rs) * e2, p < 0.82 ? '#FAFAD1' : GOLD, ease((p - 0.4) / 0.15), '0 0 ' + glow.toFixed(0) + 'px 2px rgba(228,200,125,0.7)'));
+} else if (V === 'pour') {
+var arrived = 0;
+for (i = 0; i < n; i++) arrived += ease((p - (0.1 + i * (0.72 / n))) / 0.14);
+var done = p > 0.93;
+out.push(item(d.x, d.y, D, D, rD, done ? GOLD : 'rgba(0,0,0,0.5)', ease(p / 0.1), done ? '0 0 18px 2px rgba(228,200,125,0.7)' : 'inset 0 0 0 1px rgba(255,255,255,0.18)', done ? 0 : arrived / n * 100));
+for (i = 0; i < n; i++) {
+c = src[i]; var q = ease((p - (0.1 + i * (0.72 / n))) / 0.14), z = s * (1 - 0.55 * q);
+out.push(item(c.x + (dcx - z / 2 - c.x) * q, c.y + (d.y - z / 2 - c.y) * q - 20 * Math.sin(Math.PI * q), z, z, rs, GOLD, 1 - ease((q - 0.8) / 0.2), 'none'));
+}
+} else {
+var x0 = src[0].x, e3 = ease(p / 0.4), barO = ease((p - 0.3) / 0.1), cellO = 1 - ease((p - 0.35) / 0.1);
+for (i = 0; i < n; i++) { c = src[i]; out.push(item(c.x + (x0 + i * s - c.x) * e3, c.y, s, s, rs * (1 - e3 * 0.6), GOLD, cellO, 'none')); }
+var e4 = ease((p - 0.45) / 0.5), bw = n * s + (D - n * s) * e4, bh = s + (D - s) * e4;
+out.push(item(x0 + (d.x - x0) * e4, src[0].y + (d.y - src[0].y) * e4, bw, bh, rs + (rD - rs) * e4, p > 0.9 || p < 0.5 ? GOLD : '#FAFAD1', barO, '0 0 ' + (8 + 14 * Math.sin(Math.PI * e4)).toFixed(0) + 'px 1px rgba(228,200,125,0.6)'));
+}
+return out;
+}
+_mergeVals(m, v) {
+var A = m.anim, isHour = A && A.kind === 'hour', isTen = A && A.kind === 'ten';
+var setT = Math.max(0, m.dT - (isHour ? 6 : 0)), L = this._lay(m.dH + (isHour ? 1 : 0), setT + (isTen ? 1 : 0));
+var hours = [], tens = [], mins = [], setU = Math.max(0, m.dU - (isTen ? 10 : 0)), i;
+for (i = 0; i < m.dH; i++) hours.push({ x: L.hx[i].toFixed(1) });
+for (i = 0; i < setT; i++) tens.push({ x: L.tx[i].toFixed(1) });
+for (i = 0; i < Math.min(10, setU); i++) mins.push({ x: (111.5 + i * 17).toFixed(1) });
+v.hours = hours; v.tens = tens; v.mins = mins; v.fx = A ? this._fx(A) : [];
+}
+
+renderVals() {
+var self = this, m = this._m || this._fresh(), t = m.t;
+var W = 120, H = 120, TOP = 450 - H, RUNX = 195 - W / 2, IDLEX = RUNX + 96, UW = 14, UH = 14, GX = 111.5, GY = 592, PY = UH + 3;
+function ease(p) { p = Math.max(0, Math.min(1, p)); return p * p * (3 - 2 * p); }
+function slot(i) { var col = i % 10; return { x: GX + col * 17 + 0 + (col >= 99 ? 0 : 0), y: GY + Math.floor(i / 10) * PY }; }
+var cellX = IDLEX + (RUNX - IDLEX) * ease(m.pos);
+var v = { lvX: -200, lvY: -200, lvW: UW, lvH: UH, lvR: '3px', lvO: 0 };
+if (m.hand) {
+var hp = ease(m.hand.p), s = slot(m.hand.slot), c1x = RUNX - 80, c1y = s.y - 20, q = 1 - hp;
+v.lvX = q * q * RUNX + 2 * q * hp * c1x + hp * hp * s.x; v.lvY = q * q * TOP + 2 * q * hp * c1y + hp * hp * s.y;
+var sz = ease(Math.min(1, m.hand.p * 1.6)); v.lvW = W + (UW - W) * sz; v.lvH = H + (UH - H) * sz;
+v.lvR = sz > 0.5 ? '3px' : '28px'; v.lvO = 1;
+cellX = IDLEX + (RUNX - IDLEX) * ease(m.hand.p / 0.4);
+}
+var surfaceY = TOP + H * (1 - m.frac);
+var covers = cellX <= 195 - 12 && cellX + W >= 195 + 12;
+var endY = covers ? surfaceY : 452;
+if (m.running && !covers) {
+if (false) endY = surfaceY;
+else if (m.hand && v.lvX <= 195 && v.lvX + v.lvW >= 195 && v.lvY < 452) endY = v.lvY;
+}
+var catching = endY < 451;
+var calm = 0.12 + 0.88 * (1 - ease((m.frac - 0.6) / 0.38)), amp = (3.5 + (catching ? 1.4 : 0)) * calm;
+var w = this._wave(W, H, m.frac, amp, m.running ? t * 2.2 : 0.6, m.tilt * calm);
+var cells = []; for (var i = 0; i < m.cells; i++) cells.push(slot(i));
+var mm = Math.floor(m.elapsed / 60), ss = Math.floor(m.elapsed % 60);
+var pts = []; for (var y = 238; y < endY; y += 10) pts.push((195 + 1.4 * Math.sin(y * 0.035 - t * 3.2)).toFixed(1) + ' ' + y);
+pts.push('195 ' + endY.toFixed(1));
+var now = new Date(), left = 86400 - (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds());
+if ((this.props.hoursLeft ?? 0) > 0) left = Math.min(86400, this.props.hoursLeft * 3600);
+var dayF = Math.max(0, Math.min(1, left / 86400)), VK = 'flood';
+var rw = this._wave(300, 98, Math.max(0.04, dayF), 2.4, t * 0.8);
+if (VK === 'line') { v.lineW = (300 * dayF).toFixed(1); v.lineX = (45 + 150 * (1 - dayF)).toFixed(1); }
+if (VK === 'bulb') {
+var lo = 0, hi = 1; for (var b = 0; b < 24; b++) { var mid = (lo + hi) / 2, area = 6 * (1 - mid) + 50 * Math.pow(1 - mid, 1.6); if (area / 56 > dayF) lo = mid; else hi = mid; }
+var bw = this._wave(200, 124, 1 - (6 + 112 * lo) / 124, 2, t * 0.8); v.bulbFill = bw.fill; v.bulbLine = bw.line;
+}
+if (VK === 'dish') { var hh = 64 * Math.pow(dayF, 2 / 3), dw = this._wave(300, 70, 1 - (66 - hh) / 70, 2.4, t * 0.8); v.dishFill = dw.fill; v.dishLine = dw.line; }
+if (VK === 'flood') {
+var HW = [0, 0, 0, 0, 0, 139.0, 152.1, 157.3, 161.2, 164.3, 166.9, 169.2, 171.2, 172.9, 174.5, 175.9, 177.1, 178.2, 179.1, 180.0, 180.7, 181.3, 181.8, 182.3, 182.6, 182.8, 183.0, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183.0, 182.9, 182.8, 182.7, 182.5, 182.3, 181.9, 181.7, 181.3, 180.8, 180.3, 179.9, 179.3, 178.7, 178.0, 177.3, 176.5, 175.7, 174.8, 173.9, 172.7, 171.7, 170.6, 169.2, 168.1, 166.9, 165.3, 163.7, 162.4, 160.7, 158.9, 157.0, 155.1, 153.2, 150.8, 148.7, 146.1, 143.9, 141.2, 138.4, 135.6, 132.7, 129.2, 126.1, 122.5, 118.8, 115.0, 110.6, 106.0, 100.8, 96.1, 90.1, 84.0, 77.2, 69.5, 60.5, 49.4, 35.3, 0.0, 0, 0];
+var areaBelow = function (yy) { var A = 0; for (var ai = 0; ai < HW.length; ai++) { var y0 = ai * 2; if (y0 + 2 <= yy) continue; A += HW[ai] * Math.min(2, y0 + 2 - yy); } return A; };
+var tot = areaBelow(0), flo = 10, fhi = 236;
+for (var fb = 0; fb < 22; fb++) { var fmid = (flo + fhi) / 2; if (areaBelow(fmid) / tot > dayF) flo = fmid; else fhi = fmid; }
+var fw = this._wave(390, 240, 1 - flo / 240, 3, t * 0.8);
+var hms = [Math.floor(left / 3600), Math.floor(left % 3600 / 60), Math.floor(left % 60)].map(function (n) { return ('0' + n).slice(-2); }).join(':');
+var caught = Math.floor((m.cells + (m.hand ? 1 : 0) + m.frac) * 60);
+var cms = [Math.floor(caught / 3600), Math.floor(caught % 3600 / 60), caught % 60].map(function (n) { return ('0' + n).slice(-2); }).join(':');
+v.totalChars = cms.split('').map(function (ch) { return { ch: ch, w: ch === ':' ? 15 : 28 }; }); v.totalText = cms;
+v.clockChars = hms.split('').map(function (ch) { return { ch: ch, w: ch === ':' ? 13 : 25 }; }); v.clockText = hms;
+v.floodFill = fw.fill; v.floodLine = fw.line; v.floodSurf = flo.toFixed(1); v.floodTextTop = (74 - flo).toFixed(1);
+}
+if (VK === 'moon') { var R = 40, a = R * Math.abs(2 * dayF - 1); v.moonPath = 'M42 2 A' + R + ' ' + R + ' 0 0 1 42 82 A' + a.toFixed(2) + ' ' + R + ' 0 0 ' + (dayF < 0.5 ? 0 : 1) + ' 42 2 Z'; }
+if (VK === 'hours') {
+var passed = 24 - left / 3600, hrs = [];
+for (var hI = 0; hI < 24; hI++) { var rem = Math.max(0, Math.min(1, hI + 1 - passed)); hrs.push({ x: 47 + (hI % 12) * 25, y: 134 + Math.floor(hI / 12) * 25, h: Math.round(rem * 100), glow: rem > 0 && rem < 1 ? '0 0 8px 1px rgba(228,200,125,0.5)' : 'none' }); }
+v.hours = hrs;
+}
+v.cellX = cellX.toFixed(1); v.cellFill = w.fill; v.cellLine = w.line; v.cellOpacity = m.frac > 0.004 ? 1 : 0; v.cells = cells;
+v.cellGlow = '0 0 ' + (12 + 30 * m.frac).toFixed(0) + 'px ' + (1 + 3 * m.frac).toFixed(1) + 'px rgba(228,200,125,' + (0.16 + 0.4 * m.frac + (catching ? 0.12 : 0)).toFixed(2) + ')';
+v.total = this._fmt((m.cells + (m.hand ? 1 : 0) + m.frac) * 60 / 60);
+v.status = m.undo ? 'Under a minute \u00b7 let go' : m.running ? (VK === 'flood' ? 'Catching \u00b7 since ' + (m.since || (m.since = this._hm())) : 'Catching \u00b7 ' + (mm < 10 ? '0' : '') + mm + ':' + (ss < 10 ? '0' : '') + ss) : 'Falling away, uncaught';
+v.cellAria = m.running ? 'End session' : 'Start session'; v.hint = m.running ? 'Tap the cell to let go' : 'Tap the cell to catch'; v.riderX = (cellX + W - 22).toFixed(1); v.riderY = TOP + H / 2 - 26;
+v.btnLabel = m.running ? 'End' : 'Start'; v.btnIcon = m.running ? 'M7.5 7.5h9v9h-9z' : 'M8.5 5.5v13l10-6.5z';
+v.btnBg = m.running ? '#E4C87D' : 'rgba(12,23,16,0.70)'; v.btnFg = m.running ? '#1A1206' : '#E4C87D';
+v.toggle = function () { if (!self._m) return; self._m.auto = -30; self._setRunning(!self._m.running); self.setState({ f: Math.random() }); };
+var SW = this.props.streamWidth ?? 6; v.sCore = SW; v.sGlow = (SW * 2.6 + 2).toFixed(1); v.sBead = (SW * 0.55 + 1.4).toFixed(1); v.sDash = (3 + SW).toFixed(0) + ' ' + (59 - SW).toFixed(0);
+v.stream = 'M' + pts.join(' L'); v.coreOp = 0.95; v.glowOp = 0.16; v.dashOff = (-((t * 150) % 62)).toFixed(1);
+var I = this.props.groundSplash ?? 1.2, vol = Math.pow(Math.max(1, SW) / 2, 0.75);
+function mix(u) { return 'rgb(' + Math.round(228 + (112 - 228) * u) + ',' + Math.round(200 + (122 - 200) * u) + ',' + Math.round(125 + (110 - 125) * u) + ')'; }
+function rnd(n) { var x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); }
+var lastT = this._lt == null ? t : this._lt; this._lt = t;
+this._gs = (this._gs == null ? (catching ? 0 : 1) : this._gs); this._gs += ((catching ? 0 : 1) - this._gs) * Math.min(1, Math.max(0, t - lastT) * 8);
+var gs = this._gs, sparks = [], stains = [], seeps = [];
+var NP = Math.min(44, Math.round(11 * I * vol)), LIFE = 0.78;
+for (var n = 0; n < NP; n++) {
+var cyc = t / LIFE + n / NP, kk = Math.floor(cyc), u = cyc - kk, tau = u * LIFE, sd = n * 7 + kk * 13;
+var dir = rnd(sd) < 0.5 ? -1 : 1, vx = dir * (18 + 62 * rnd(sd + 1)) * (0.8 + 0.3 * I) * (0.85 + 0.15 * vol), vy = -(95 + 105 * rnd(sd + 2)) * (0.8 + 0.3 * I) * (0.88 + 0.12 * vol);
+var py = 452 + vy * tau + 0.5 * 430 * tau * tau, sz = (2.2 + 2.2 * rnd(sd + 3)) * (0.75 + 0.25 * vol);
+if (py > 452) continue;
+sparks.push({ x: (195 + vx * tau - sz / 2).toFixed(1), y: (py - sz / 2).toFixed(1), s: sz.toFixed(1), c: mix(Math.min(1, u * 1.5)), o: (gs * (1 - u * 0.75)).toFixed(2) });
+}
+for (var a2 = 0; a2 < 2; a2++) { var su = (t / 1.7 + a2 / 2) % 1, sw = (34 + 110 * su) * (0.7 + 0.35 * I) * (0.72 + 0.28 * vol), sh = (5 + 8 * su) * (0.8 + 0.2 * vol); stains.push({ x: (195 - sw / 2).toFixed(1), y: (452 - sh / 2).toFixed(1), w: sw.toFixed(1), h: sh.toFixed(1), o: (gs * 0.5 * (1 - su)).toFixed(2) }); }
+var NS = Math.min(14, Math.round(6 * vol));
+for (var e2 = 0; e2 < NS; e2++) { var eu = (t / 1.3 + rnd(e2 + 40)) % 1; seeps.push({ x: (195 + (rnd(e2 + 50) - 0.5) * 84 * (0.8 + 0.2 * vol)).toFixed(1), h: (3 + 13 * eu).toFixed(1), o: (gs * I * 0.45 * (1 - eu)).toFixed(2) }); }
+var cs = (1 - gs) * (endY < 451 ? 1 : 0) * calm, NC = Math.min(14, Math.round(4 * vol));
+for (var c2 = 0; c2 < NC; c2++) {
+var cy2 = t / 0.55 + c2 / NC, ck = Math.floor(cy2), cu2 = cy2 - ck, ct = cu2 * 0.55, cd = c2 * 5 + ck * 11;
+var cvx = (rnd(cd) < 0.5 ? -1 : 1) * (8 + 30 * rnd(cd + 1)) * (0.8 + 0.2 * vol), cvy = -(48 + 50 * rnd(cd + 2)) * (0.8 + 0.2 * vol);
+var cpy = endY + cvy * ct + 0.5 * 430 * ct * ct, csz = (1.8 + 1.6 * rnd(cd + 3)) * (0.75 + 0.25 * vol);
+if (cpy > endY || cs < 0.02) continue;
+sparks.push({ x: (195 + cvx * ct - csz / 2).toFixed(1), y: (cpy - csz / 2).toFixed(1), s: csz.toFixed(1), c: '#FAFAD1', o: (cs * (1 - cu2) * 0.9).toFixed(2) });
+}
+var fS = 32 * (0.7 + 0.3 * vol); v.flashS = fS.toFixed(1); v.flashX = (195 - fS / 2).toFixed(1); v.flashY = (452 - fS / 2).toFixed(1);
+v.sparks = sparks; v.stains = stains; v.seeps = seeps; v.flashO = (gs * (0.55 + 0.25 * Math.sin(t * 9))).toFixed(2);
+for (var k = 0; k < 3; k++) {
+var p = (t * 0.7 + k / 3) % 1, rx = 4 + (catching ? 34 : 46) * p;
+v['r' + k] = { cx: 195, cy: endY.toFixed(1), rx: (catching ? rx * (0.9 + 0.1 * vol) : rx * (1 + 0.5 * I) * (0.8 + 0.2 * vol)).toFixed(1), ry: (rx * (catching ? 0.15 : 0.2)).toFixed(1), o: ((1 - p) * (catching ? 0.6 : 0.6)).toFixed(2), c: catching ? '#E4C87D' : mix(Math.min(1, p * 1.6)) };
+}
+v.lvX = Number(v.lvX).toFixed(1); v.lvY = Number(v.lvY).toFixed(1); v.lvW = Number(v.lvW).toFixed(1); v.lvH = Number(v.lvH).toFixed(1);
+v.resFill = rw.fill; v.resLine = rw.line; v.dayLeft = Math.floor(left / 3600) + ' h ' + ('0' + Math.floor(left % 3600 / 60)).slice(-2) + ' min';
+this._mergeVals(m, v);
+return v;
+}
+}
+</script>
+</body>
+</html>
